@@ -1,0 +1,13 @@
+Menu
+
+1/ Joueurs
+	Ajouter joueur
+	Lister les joueurs (alphabétique)
+2/ Rapport
+	Liste joueurs (Global ou par tournoi)
+	Liste tournois
+	name et date d'un tournoi
+	Détails déroulé d'un tournois (round et matchs)
+	
+3/ Gestion d'un tournoi
+4/ Sauvegarder et quitter
