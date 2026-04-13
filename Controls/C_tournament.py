@@ -207,12 +207,8 @@ def set_outcome_of_matches(tournament: Tournament):
 
         list_of_match_composition.append(current_match_data)
         index_player += 2
-#        player_instance_list.pop(1)
-#        player_instance_list.pop(0)
     tournament.registered_players_in_tournament_list = player_instance_list
     return list_of_match_composition
-
-# TODO : validate registered players are in even number
 
 
 def define_name_of_next_round(tournament: Tournament):

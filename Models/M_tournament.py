@@ -19,12 +19,6 @@ class Tournament():
         )
         self.description = description
 
-    def get_round_list(self):
-        list_of_round_dict = []
-        for round in self.round_list:
-            list_of_round_dict.append(round)
-        return list_of_round_dict
-
     def get_current_round_number(self):
         return self.current_round_number
 
@@ -33,23 +27,3 @@ class Tournament():
         for player in self.registered_players_in_tournament_list:
             formated_list_registered_players.append(player.__str__())
         return formated_list_registered_players
-
-    def get_serializable_tournament(self):
-        round_list = []
-        for round in self.round_list:
-            round_list.append(round)
-        dict_to_return = {
-            "name": self.name,
-            "place": self.place,
-            "beginning_date": self.beginning_date,
-            "ending_date": self.ending_date,
-            "number_of_round": self.number_of_round,
-            "current_round_number": self.current_round_number,
-            "round_list": round_list,
-            "registered_players_in_tournament_list":
-            self.format_registered_players()
-        }
-        return dict_to_return
-
-    def get_number_of_registered_player(self):
-        return len(self.registered_players_in_tournament_list)
