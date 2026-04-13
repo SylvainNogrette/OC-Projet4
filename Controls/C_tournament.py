@@ -27,7 +27,7 @@ def input_tournament():
     tournament_to_create = Tournament(
         input_tournament_name(),
         input_tournament_place(),
-        now.strftime("%d/%m%/%Y"),
+        now.strftime("%d/%m/%Y, %H:%M"),
         "",
         0,
         [],
@@ -49,6 +49,11 @@ def get_historic_without_score(historic: list[list]) -> list[set]:
 
 
 def correct_sorted_players_by_match_historic(tournament: Tournament):
+    '''
+    From sorted list by score. Take one player then find the next best
+    player who hasn't played with yet. This player is placed right
+    after the player in the list.
+    '''
     historic = get_list_of_every_match(tournament)
     historic_without_score = get_historic_without_score(historic)
     sorted_players = []
@@ -60,36 +65,31 @@ def correct_sorted_players_by_match_historic(tournament: Tournament):
         / 2
         )
     for i in range(number_of_dual):
-        it_first_player = iter(
-            temp_registered_players_in_tournament_list
-            )
-        first_player = next(it_first_player)
-        first_player_index = (
-                temp_registered_players_in_tournament_list.index(first_player)
-                )
+
+        first_player = temp_registered_players_in_tournament_list[0]
+
         # iterate on the player list minus every player until firstplayer index
         it_second_player = iter(
-                temp_registered_players_in_tournament_list[
-                    first_player_index + 1:
-                    ]
+                temp_registered_players_in_tournament_list[1:]
                 )
         second_player = next(it_second_player)
         match_combinations = {str(first_player), str(second_player)}
-
+        # set of two players to check if the match is in historic of matches
+        all_matchup_already_played = False
         while match_combinations in historic_without_score:
             try:
                 second_player = next(it_second_player)
                 match_combinations = {str(first_player), str(second_player)}
             except StopIteration:
-                # remettre second player en index
-                match_combinations = {str(first_player), str(second_player)}
+                all_matchup_already_played = True
                 break
+        if all_matchup_already_played:
+            # if all matchup has been played, keep the score sorting order
+            second_player = temp_registered_players_in_tournament_list[1]
 
         sorted_players.extend([first_player, second_player])
         temp_registered_players_in_tournament_list.remove(second_player)
         temp_registered_players_in_tournament_list.remove(first_player)
-        if temp_registered_players_in_tournament_list:
-            next(it_first_player)  # pass the second player
 
     tournament.registered_players_in_tournament_list.clear()
     tournament.registered_players_in_tournament_list.extend(sorted_players)
@@ -99,11 +99,7 @@ def correct_sorted_players_by_match_historic(tournament: Tournament):
 def generate_next_list_of_matches(
         sorted_player_list: List) -> List[Tuple]:
     '''
-    Genererate the list of matches played in the next Round.
-    :param sorted_player_list: Description
-    :type sorted_player_list: List
-    :param list_match_historic: Description
-    :type list_match_historic: List[Tuple]
+   Pairs each two element in a tuple and return list of pairs
     '''
     list_of_new_matches = []
     temp_sorted_player_list = sorted_player_list
@@ -118,9 +114,8 @@ def generate_next_list_of_matches(
 
 
 def check_max_number_of_round(checked_tournament: Tournament):
+    '''Check if the maximum of rounds in tournament has already been created'''
 
-    # Vérifie avant la création d'un round que le nombre de Rounds
-    # défini à la création du tournoi n'est pas dépassé.
     round_number = checked_tournament.__dict__["current_round_number"]
     max_number_of_round = checked_tournament.__dict__["number_of_round"]
     if int(round_number) >= int(max_number_of_round):

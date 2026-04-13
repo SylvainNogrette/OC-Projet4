@@ -66,29 +66,28 @@ def input_ending():
         ).ask()
 
 
-def sign_up_players(players_in_db: List[str]) -> List[str]:
-    signed_up_players = []
+def sign_up_players(remaining_players_to_choose: List[str]) -> List[str]:
 
-    while questionary.confirm("Voulez-vous ajouter un joueur? Y/N").ask():
+    signed_up_players = []
+    while (
+        remaining_players_to_choose
+        and questionary.confirm("Voulez-vous ajouter un joueur? Y/N").ask()
+    ):
         chosen_player = questionary.select(
             "Sélectionnez un joueur à ajouter au tournoi",
-            choices=players_in_db
+            choices=remaining_players_to_choose
         ).ask()
 
         signed_up_players.append(chosen_player)
-        players_in_db.remove(chosen_player)
+        remaining_players_to_choose.remove(chosen_player)
 
     return signed_up_players
 
 
-def ask_outcome_of_match(player1, player2):
+def ask_outcome_of_match(player1: str, player2: str) -> str:
+    '''Ask and return the player who won the match and return it as String '''
     winner = questionary.select(
         "Parmi les joueurs du match, qui est sorti vainqueur?",
         choices=[player1, player2, "Personne"]
         ).ask()
     return winner
-
-
-def display_match_list(list_of_matches: List):
-    for match in list_of_matches:
-        str()

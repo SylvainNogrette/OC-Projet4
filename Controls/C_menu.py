@@ -10,8 +10,6 @@ from Models.M_DB_manager import (
 )
 from Controls.C_player import (
     input_player,
-    append_player_to_list,
-    modify_player,
     get_every_players_in_db,
     format_player_list
 )
@@ -27,8 +25,6 @@ from Controls.C_tournament import (
 from Views.V_menu import display_main_menu, \
                           display_player_menu, \
                           display_tournament_menu, \
-                          display_match_menu, \
-                          display_save_menu, \
                           display_report_menu
 from Views.V_player import ask_who_to_remove
 from Views.V_tournament import sign_up_players
@@ -62,15 +58,10 @@ def execute_player_menu():
                                         "Voulez-vous ajouter un joueur?"
                                         ).ask():
                     player_to_add = input_player()
-                    player_list = append_player_to_list(
-                        player_list,
-                        player_to_add
-                        )
+                    player_list.append(player_to_add)
                     print("Saisie ok, avant sauvegarde ...")
                 save_in_database(player_list, "player")
                 print("Le(s) joueur(s) ont été ajouté à la base de donnée.")
-            case "Modifier un joueur existant":
-                modify_player()
             case "Supprimer un ou des joueurs":
                 navigate_player_menu = ask_who_to_remove()
         navigate_player_menu = display_player_menu()
@@ -83,12 +74,9 @@ def execute_tournament_menu():
         match navigate_tournament_menu:
             case "Ajouter un tournoi":
                 print("Attention un seul tournoi peut être en cours!")
-                while questionary.confirm(
-                                        "Voulez-vous ajouter un tournoi?"
-                                        ).ask():
-                    tournament_to_create = input_tournament()
-                    print("Saisie ok, sauvegarde en cours...")
-                    save_in_database(tournament_to_create, "tournament")
+                tournament_to_create = input_tournament()
+                print("Saisie ok, sauvegarde en cours...")
+                save_in_database(tournament_to_create, "tournament")
             case "Ajouter des joueurs au tournoi":
                 print("Assurez-vous que tous les participants"
                       "sont déjà enregistrés.")
@@ -104,16 +92,6 @@ def execute_tournament_menu():
                     save_tournament_update(selected_tournament,
                                            players_to_add,
                                            "player_to_register")
-            case "Gestion des matches":
-                navigate_tournament_menu = execute_match_menu()
-        navigate_tournament_menu = display_tournament_menu()
-    return navigate_tournament_menu
-
-
-def execute_match_menu():
-    navigate_match_menu = display_match_menu()
-    while navigate_match_menu != Constants.RETURN_TO_MAIN:
-        match navigate_match_menu:
             case "Démarrer un Round":
                 if questionary.confirm("Voulez-vous démarrer"
                                        " un nouveau round?").ask():
@@ -134,27 +112,16 @@ def execute_match_menu():
                                 "match")
                         if not check_max_number_of_round(elt):
                             now = datetime.now()
-                            elt.ending_date = now.strftime("%d/%m/%Y, %H:%M")
+                            elt.ending_date = now.strftime(
+                                "%d/%m/%Y, %H:%M"
+                                )
                             save_tournament_update(
                                 elt.__dict__["name"],
                                 elt.__dict__["ending_date"],
                                 "ending"
                             )
-                        # TODO : save ending date in db
-        navigate_match_menu = display_match_menu()
-    return navigate_match_menu
-
-
-def execute_save_menu():
-    navigate_save_menu = display_save_menu()
-    while navigate_save_menu != Constants.RETURN_TO_MAIN:
-        match navigate_save_menu:
-            case "Creer une sauvegarde":
-                pass
-            case "Restaurer une sauvegarde":
-                pass
-            case Constants.RETURN_TO_MAIN:
-                pass
+        navigate_tournament_menu = display_tournament_menu()
+    return navigate_tournament_menu
 
 
 def execute_report_menu():

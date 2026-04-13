@@ -12,7 +12,7 @@ def validate_name(input_name):
             if input != "":
                 return input
             else:
-                print("Vous devez saisir le name du joueur.")
+                print("Vous devez saisir le nom du joueur.")
                 return wrapper()
         except Exception:
             print(Exception)
@@ -27,11 +27,24 @@ def validate_firstname(input_firstname):
             if input != "":
                 return input
             else:
-                print("Vous devez saisir le firstname du joueur.")
+                print("Vous devez saisir le prénom du joueur.")
                 return wrapper()
         except Exception:
             print(Exception)
             return wrapper()
+    return wrapper
+
+
+def check_if_no_duplicate_player(input_playerID):
+    def wrapper():
+        input = input_playerID()
+        if id_is_in_db(input, "player"):
+            print(
+                "Un joueur possède déjà cet identifiant."
+                "Vérifiez votre saisie")
+            return wrapper()
+        else:
+            return input
     return wrapper
 
 
@@ -74,31 +87,5 @@ def validate_date_plus_hour(input_date_plus_hour):
             return result_string
         except Exception:
             print("Le format JJ/MM/AAAA, hh:mm n'est pas respecté")
-            return wrapper()
-    return wrapper
-
-
-def check_if_no_duplicate_player(id_player):
-    if id_is_in_db(id_player, "player"):
-        print(
-            '''Un joueur possède déjà cet identifiant. Vérifiez votre saisie
-            ou corriger l'identifiant du joueur déjà dans la base.''')
-        return
-    return True
-
-
-def check_if_date_follow_each_other(date1: str, date2: str):
-    firstdate = datetime.strptime(date1, "%d/%m/%Y, %H:%M")
-    seconddate = datetime.strptime(date2, "%d/%m/%Y, %H:%M")
-    return firstdate < seconddate
-
-
-def validate_dates_are_chronologic(input, anterior_date):
-    def wrapper():
-        try:
-            date_input = input()
-            check_if_date_follow_each_other(anterior_date, date_input)
-        except Exception:
-            print(f"La date saisie ne peut être avant {date_input}.")
             return wrapper()
     return wrapper

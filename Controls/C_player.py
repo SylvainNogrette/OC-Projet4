@@ -8,7 +8,7 @@ from tinydb import TinyDB, \
 import Constants
 import Controls.C_validators
 from Models.M_player import Player
-from Views.V_menu import ask_which_attr_to_modify, ask_modification_value
+
 
 db_player = TinyDB(Constants.PATH_TO_DB + Constants.PLAYER_DB_SUFFIX)
 
@@ -18,8 +18,7 @@ def input_player():
         input_name(),
         input_firstname(),
         input_birthdate(),
-        input_national_id(),
-        input_score()
+        input_national_id()
     )
     return player_to_instanciate
 
@@ -39,6 +38,7 @@ def input_birthdate(): return questionary.text(
     "Quand le joueur est-il né?(Tapez au format : JJ/MM/AAAA)").ask()
 
 
+@Controls.C_validators.check_if_no_duplicate_player
 @Controls.C_validators.validate_player_ID
 def input_national_id(): return questionary.text(
     "Quel est l'identifiant national du joueur ?").ask()
@@ -50,51 +50,6 @@ def input_score():
     except Exception:
         print("Vous n'avez pas saisie un nombre entier.")
         return input_score()
-
-
-def modify_player():
-    Player = Query()
-    ask_modification = True
-    while ask_modification:
-        who_to_modifiy = questionary.text(
-                                       '''
-                                       Quel est l'identifiant national du
-                                       joueur à modifier?
-                                       '''
-                                       ).ask()
-        what_to_modify = []
-        autreModif = True
-        while autreModif:
-            what_to_modify.append(
-                input_modif_to_player(who_to_modifiy))
-            autreModif = questionary.confirm(
-                                            '''
-                                            Souhaitez-vous apporter
-                                            une autre modification au joueur?
-                                            '''
-                                            ).ask()
-        # Couper la fonction à ce niveau
-        for modif in what_to_modify:
-            db_player.update({modif[0]: modif[1]},
-                             Player.national_player_id == who_to_modifiy)
-        # jusqu'ici
-        ask_modification = questionary.confirm(
-            "Voulez-vous modifier un autre joueur?").ask()
-    return
-
-
-def input_modif_to_player(who_is_modified):
-    dummyinstance = Player("", "", "", "XX00000", "")
-    what_to_modify = ask_which_attr_to_modify(dummyinstance.__dict__.keys())
-    replace_by = ask_modification_value(what_to_modify, who_is_modified)
-    return (what_to_modify, replace_by)
-
-
-def append_player_to_list(players_list, player):
-    listetemp = []
-    listetemp = players_list
-    listetemp.append(player)
-    return listetemp
 
 
 def format_player_list(list_of_player_instances: List[Player]) -> List:
@@ -129,7 +84,6 @@ def format_player(load_player):
     return wrapper
 
 
-# TODO : move get every players in db to DB manager
 @format_player
 def get_every_players_in_db():
     db_player.clear_cache()
@@ -166,18 +120,6 @@ def load_wanted_players(formated_player_list: List[str]) -> List[Player]:
                         )
         player_list.append(joueur)
     return player_list
-
-
-def sort_player(playerList: List[Player]):
-    temporary_list = []
-    sorted_player_list = []
-    for player in playerList:
-        temporary_list.append((player.name, player))
-
-    temporary_list.sort()
-    for key, player in temporary_list:
-        sorted_player_list.append(player)
-        return sorted_player_list
 
 
 def get_player_as_list(player: Player):

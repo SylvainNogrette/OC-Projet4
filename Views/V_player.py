@@ -2,7 +2,6 @@ import questionary
 
 
 from Controls.C_player import remove_players
-from Controls.C_player import append_player_to_list
 from Controls.C_player import get_every_players_in_db
 
 
@@ -12,8 +11,7 @@ def select_players_in_DB():
     while questionary.confirm(
                              "Voulez-vous selectionner un joueur? Y/N"
                              ).ask():
-        list_registered_player = append_player_to_list(
-            list_registered_player,
+        list_registered_player.append(
             questionary.select(
                                "Sélectionnez le joueur à \
                                 ajouter à la liste de suppression",

@@ -1,5 +1,8 @@
 class Tournament():
-
+    '''
+    Contains data about a tournament and several methods
+    to access it or set value to its attributes
+    '''
     def __init__(self, name, place, beginning_date, ending_date,
                  current_round_number, round_list,
                  registered_players_in_tournament_list,
