@@ -17,7 +17,7 @@ La base de données est alimentée par l'utilisateur qui peut retrouver les info
 
 ## Installer le programme
 
-- Utilisez la commande suivante pour télécharger le programme. ''git clone https://github.com/SylvainNogrette/Projet2.git](https://github.com/SylvainNogrette/OC-Projet4.git''
+- Utilisez la commande suivante pour télécharger le programme. '''[git clone https://github.com/SylvainNogrette/Projet2.git](https://github.com/SylvainNogrette/OC-Projet4.git)'''
 - Installer les dépendances TinyDB et questionary. Vous pouvez retrouver la liste des dépendances dans le fichier requierement.text Vous pouvez installer ces dépendances manuellement ou utiliser la commande pip install -r requierements.txt depuis le dossier de travail.
 
 ## Utiliser le programme
