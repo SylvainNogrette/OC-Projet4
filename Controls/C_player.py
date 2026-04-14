@@ -1,8 +1,10 @@
 import questionary
 import re
 from typing import List
-from tinydb import TinyDB, \
-                   Query
+from tinydb import (
+    TinyDB,
+    Query
+)
 
 
 import Constants

@@ -3,9 +3,6 @@ import questionary
 import Constants
 
 
-Constants.RETURN_TO_MAIN = "Revenir au menu principal"
-
-
 def display_main_menu():
 
     questionary.text("Bienvenu dans le Gestionnaire de Club d'échec.")

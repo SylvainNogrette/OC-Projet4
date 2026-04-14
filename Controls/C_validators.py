@@ -52,7 +52,7 @@ def validate_player_ID(input_playerID):
     def wrapper():
         try:
             input = input_playerID()
-            patternIsOk = re.match(r"[A-Z]{2}\d{5}", input)
+            patternIsOk = re.match(r"[A-Z]{2}\d{5}$", input)
             if patternIsOk:
                 return input
             else:

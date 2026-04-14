@@ -48,10 +48,11 @@ def input_round_ending():
 
 
 def input_number_of_round():
-    return questionary.text(
-        "Quel nombre de tours contient votre"
-        " tournoi?"
-    ).ask()
+    result = questionary.text("Quel nombre de tours contient votre tournoi?").ask()
+    if result:
+        return result
+    else:
+        return "4"
 
 
 def input_tournament_description():

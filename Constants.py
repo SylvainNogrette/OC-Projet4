@@ -1,5 +1,3 @@
-
-
 # constant about menu
 
 MAIN_MENU = "Menu Principal"

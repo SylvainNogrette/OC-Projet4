@@ -1,4 +1,7 @@
-from tinydb import TinyDB, Query
+from tinydb import (
+    TinyDB,
+    Query
+)
 from copy import deepcopy
 
 import Models.M_player

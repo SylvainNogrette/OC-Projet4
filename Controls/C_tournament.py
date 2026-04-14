@@ -11,11 +11,13 @@ from Models.M_tournament import Tournament
 from Models.M_round import Round
 from Models.M_DB_manager import save_tournament_update
 
-from Views.V_tournament import input_tournament_name, \
-                             input_tournament_place, \
-                             input_number_of_round, \
-                             input_tournament_description, \
-                             ask_outcome_of_match
+from Views.V_tournament import (
+    input_tournament_name,
+    input_tournament_place,
+    input_number_of_round,
+    input_tournament_description,
+    ask_outcome_of_match
+    )
 
 
 PATH_TO_DB = 'Base_de_données'
