@@ -10,15 +10,25 @@ La base de données est alimentée par l'utilisateur qui peut retrouver les info
 - Le logiciel est utilisable hors-ligne
 
 - Python3 doit être installé sur votre ordinateur (v3.12.3). Vous pouvez vérifier votre version en tapant la commande python3 -v Pour installer Python sous Windows, téléchargez l'installateur correspndant à votre systeme via le lien suivant : https://www.python.org/downloads/windows/ Sous linux, exécutez la fonction apt install python3
+  
+- Utilisez la commande suivante pour télécharger le programme.
+  
+  ```git clone https://github.com/SylvainNogrette/Projet2.git https://github.com/SylvainNogrette/OC-Projet4.git```
+  
+-  Créez une environnement virtuel pour exécuter le logiciel en tapant la commande :
+
+   ```python -m venv venv```
+   
+- Installer les dépendances TinyDB et questionary. Vous pouvez retrouver la liste des dépendances dans le fichier requierement.text Vous pouvez installer ces dépendances manuellement ou utiliser la commande depuis le dossier de travail.
+   
+  ```pip install -r requirements.txt``` 
 
 - Pour l'installation des dépendances vous devez disposer de l'installateur pip si vous utilisez un environnement virtuel ou utilisez la commande apt install python3-xyz en remplaçant xyz par le nom de la dépendance souhaitée. La liste des dépendances nécessaires est disponible dans le fichier requierements.txt
 
+
+
 - Git est également nécessaire pour cloner le projet sur votre machine. Pour installer la version de Git adaptée à votre configuration suivez le lien suivant et lancer l'installateur: https://git-scm.com/downloads
 
-## Installer le programme
-
-- Utilisez la commande suivante pour télécharger le programme. '''[git clone https://github.com/SylvainNogrette/Projet2.git](https://github.com/SylvainNogrette/OC-Projet4.git)'''
-- Installer les dépendances TinyDB et questionary. Vous pouvez retrouver la liste des dépendances dans le fichier requierement.text Vous pouvez installer ces dépendances manuellement ou utiliser la commande pip install -r requierements.txt depuis le dossier de travail.
 
 ## Utiliser le programme
 
