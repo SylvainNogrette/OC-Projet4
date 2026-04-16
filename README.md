@@ -9,7 +9,7 @@ La base de données est alimentée par l'utilisateur qui peut retrouver les info
 
 - Le logiciel est utilisable hors-ligne
 
-- Python3 doit être installé sur votre ordinateur (v3.12.3). Vous pouvez vérifier votre version en tapant la commande python3 -v Pour installer Python sous Windows, téléchargez l'installateur correspndant à votre systeme via le lien suivant : https://www.python.org/downloads/windows/ Sous linux, exécutez la fonction apt install python3
+- Python3 doit être installé sur votre ordinateur (v3.12.3). Vous pouvez vérifier votre version en tapant la commande ```python3 -v``` Pour installer Python sous Windows, téléchargez l'installateur correspndant à votre systeme via le lien suivant : https://www.python.org/downloads/windows/ Sous linux, exécutez la fonction ```apt install python3```
   
 - Utilisez la commande suivante pour télécharger le programme.
   
@@ -23,7 +23,7 @@ La base de données est alimentée par l'utilisateur qui peut retrouver les info
    
   ```pip install -r requirements.txt``` 
 
-- Pour l'installation des dépendances vous devez disposer de l'installateur pip si vous utilisez un environnement virtuel ou utilisez la commande apt install python3-xyz en remplaçant xyz par le nom de la dépendance souhaitée. La liste des dépendances nécessaires est disponible dans le fichier requierements.txt
+- Pour l'installation des dépendances vous devez disposer de l'installateur pip si vous utilisez un environnement virtuel ou utilisez la commande ```apt install python3-xyz``` en remplaçant xyz par le nom de la dépendance souhaitée. La liste des dépendances nécessaires est disponible dans le fichier requierements.txt
 
 
 
