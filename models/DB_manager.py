@@ -4,8 +4,8 @@ from tinydb import (
 )
 from copy import deepcopy
 
-import Models.M_player
-import Models.M_tournament
+import models.player
+import models.tournament
 
 
 PATH_TO_DB = 'Base_de_données'
@@ -116,7 +116,7 @@ def get_instances_from_DB(id_list, type_of_object):
             searched_player = DB_PLAYER.search(
                 request.national_player_id
                 == str(elt)[-7:])
-            player = Models.M_player.Player(
+            player = models.player.Player(
                             searched_player[0]["name"],
                             searched_player[0]["firstname"],
                             searched_player[0]["birthdate"],
@@ -135,7 +135,7 @@ def get_instances_from_DB(id_list, type_of_object):
             searched_tournament = DB_TOURNAMENT.search(
                 request.name == tournament
             )
-            tournament = Models.M_tournament.Tournament(
+            tournament = models.tournament.Tournament(
                 searched_tournament[0]["name"],
                 searched_tournament[0]["place"],
                 searched_tournament[0]["beginning_date"],

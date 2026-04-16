@@ -1,5 +1,5 @@
-from Controls import C_menu
+from controls import menu
 
 
 if __name__ == "__main__":
-    C_menu.C_menu()
+    menu.main_menu()

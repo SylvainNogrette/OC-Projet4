@@ -1,20 +1,20 @@
 import questionary
 from datetime import datetime
 
-import Constants
-from Models.M_DB_manager import (
+import constants
+from models.DB_manager import (
     save_in_database,
     save_tournament_update,
     get_list_tournaments_in_db,
     get_instances_from_DB
 )
-from Controls.C_player import (
+from controls.player import (
     input_player,
     get_every_players_in_db,
     format_player_list
 )
-from Controls.C_reports import create_report
-from Controls.C_tournament import (
+from controls.reports import create_report
+from controls.tournament import (
     input_tournament,
     check_max_number_of_round,
     generate_round,
@@ -22,27 +22,27 @@ from Controls.C_tournament import (
     format_historic
 )
 
-from Views.V_menu import display_main_menu, \
+from views.menu import display_main_menu, \
                           display_player_menu, \
                           display_tournament_menu, \
                           display_report_menu
-from Views.V_player import ask_who_to_remove
-from Views.V_tournament import sign_up_players
+from views.player import ask_who_to_remove
+from views.tournament import sign_up_players
 
 
-def C_menu():
+def main_menu():
     navigate_through_main_menu = display_main_menu()
-    while navigate_through_main_menu != Constants.EXIT:
+    while navigate_through_main_menu != constants.EXIT:
         match navigate_through_main_menu:
-            case Constants.PLAYER_MENU:
+            case constants.PLAYER_MENU:
                 navigate_through_main_menu = execute_player_menu()
-            case Constants.TOURNAMENT_MENU:
+            case constants.TOURNAMENT_MENU:
                 navigate_through_main_menu = execute_tournament_menu()
-            case Constants.REPORT_MENU:
+            case constants.REPORT_MENU:
                 navigate_through_main_menu = execute_report_menu()
-            case Constants.SAVE_MENU:
+            case constants.SAVE_MENU:
                 pass
-            case Constants.EXIT:
+            case constants.EXIT:
                 pass
         navigate_through_main_menu = display_main_menu()
     return
@@ -50,7 +50,7 @@ def C_menu():
 
 def execute_player_menu():
     navigate_player_menu = display_player_menu()
-    while navigate_player_menu != Constants.RETURN_TO_MAIN:
+    while navigate_player_menu != constants.RETURN_TO_MAIN:
         match navigate_player_menu:
             case "Ajouter un utilisateur":
                 player_list = []
@@ -70,7 +70,7 @@ def execute_player_menu():
 
 def execute_tournament_menu():
     navigate_tournament_menu = display_tournament_menu()
-    while navigate_tournament_menu != Constants.RETURN_TO_MAIN:
+    while navigate_tournament_menu != constants.RETURN_TO_MAIN:
         match navigate_tournament_menu:
             case "Ajouter un tournoi":
                 print("Attention un seul tournoi peut être en cours!")
@@ -127,7 +127,7 @@ def execute_tournament_menu():
 def execute_report_menu():
     navigate_report_menu = display_report_menu()
     separator = "\n"
-    while navigate_report_menu != Constants.RETURN_TO_MAIN:
+    while navigate_report_menu != constants.RETURN_TO_MAIN:
         content = ""
         report_name = ""
         match navigate_report_menu:
@@ -147,7 +147,7 @@ def execute_report_menu():
                     )
 
                 content = separator.join(sorted_player)
-                report_name = Constants.NAME_REPORT_PLAYER
+                report_name = constants.NAME_REPORT_PLAYER
 
             case "Tous les tournois":
                 imported_tournaments = get_list_tournaments_in_db()
@@ -157,7 +157,7 @@ def execute_report_menu():
                     )
                 for tournament in list_of_tournament_instances:
                     content = content + format_tournament(tournament)
-                report_name = Constants.NAME_REPORT_ALL_TOURNAMENT
+                report_name = constants.NAME_REPORT_ALL_TOURNAMENT
 
             case "Nom et date du tournoi":
                 selected_tournament = questionary.select(
@@ -172,7 +172,7 @@ def execute_report_menu():
                                + tournament.name + "\n"
                                + tournament.beginning_date + "\n"
                                + tournament.ending_date + "\n")
-                report_name = Constants.NAME_REPORT_TOURNAMENT_NAME_AND_DATE
+                report_name = constants.NAME_REPORT_TOURNAMENT_NAME_AND_DATE
 
             case "Joueurs dans le tournoi":
                 selected_tournament = questionary.select(
@@ -200,7 +200,7 @@ def execute_report_menu():
                     content = separator.join(sorted_player)
 
                 report_name = (
-                    Constants.NAME_REPORT_PLAYERS_IN_TOURNAMENT
+                    constants.NAME_REPORT_PLAYERS_IN_TOURNAMENT
                     )
 
             case "Historique des matchs du tournoi":
@@ -214,7 +214,7 @@ def execute_report_menu():
                 for tournament in loaded_tournament:
                     content = separator.join(format_historic(tournament))
                 report_name = (
-                    Constants.NAME_REPORT_TOURNAMENT_ROUND_HISTORIC
+                    constants.NAME_REPORT_TOURNAMENT_ROUND_HISTORIC
                     )
 
         create_report(report_name, content)
